@@ -5,13 +5,16 @@ Simple command line parser for node
 
 ## Usage
 
+###As class
+
 #### Initialization
 
-	const parser = new ClParser({
-		offset: number, 		// default: 2
-		optionPrefix: string, 	// "/", "-", or "--"", default: "/"
-		caseSensitive: boolean 	// default: false
-	});
+const clp = require("clparser")
+const parser = new clp.ClParser({
+	offset: <number>, 		// default: 2
+	optionPrefix: <string>, 	// "/", "-", or "--"", default: "/"
+	caseSensitive: <boolean> 	// default: false
+});
 
 #### Properties
 	offset 				number
@@ -20,8 +23,8 @@ Simple command line parser for node
 	parameters 			array
 
 #### Methods
-	option(optionname) 		returns value of the option as string
-	parameter(index)		returns value of the parameter as string
-	switch(switchname) 		returns boolean indicating the existence of the switch 
+	option(name) 		Get the value of the named option as string
+	parameter(index)	Get	the command line parameter indicated by index as string
+	switch(name) 		Returns boolean value that indicates whether the named switch exist
 
 
