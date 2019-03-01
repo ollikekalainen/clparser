@@ -3,6 +3,11 @@
 Simple command line parser for node
 
 
+## Installation
+
+	npm install clparser
+
+
 ## Usage
 
 ### Class interface
