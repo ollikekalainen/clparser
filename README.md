@@ -9,12 +9,12 @@ Simple command line parser for node
 
 #### Initialization
 
-const clp = require("clparser")
-const parser = new clp.ClParser({
-	offset: <number>, 		// default: 2
-	optionPrefix: <string>, 	// "/", "-", or "--"", default: "/"
-	caseSensitive: <boolean> 	// default: false
-});
+	const clp = require("clparser")
+	const parser = new clp.ClParser({
+		offset: <number>,           // default: 2
+		optionPrefix: <string>,     // "/", "-", or "--"", default: "/"
+		caseSensitive: <boolean>    // default: false
+	});
 
 #### Properties
 	offset 				number
