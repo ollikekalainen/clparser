@@ -7,8 +7,8 @@
 
 	Initialization
 
-		const ClParser = require("./clparser");
 		const parser = new ClParser({
+			offset: number, 		// default: 2
 			optionPrefix: string, 	// "/", "-", or "--"", default: "/"
 			caseSensitive: boolean 	// default: false
 		});
