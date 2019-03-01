@@ -19,12 +19,12 @@ Simple command line parser for node
 #### Properties
 	parser.offset               number, default: 2
 	parser.optionPrefix         string, "/", "-", or "--", default: "/"
-	parser.parameterCount       number
-	parser.parameters           array (readonly)
+	parser.parameterCount       number of parameters (readonly, no options or switches)
+	parser.parameters           array (readonly, no options or switches)
 
 #### Methods
-	parser.option(name)         Get the value of the named option as string
-	parser.parameter(index)     Get the command line parameter indicated by index as string
+	parser.option(name)         Get the value of the named option
+	parser.parameter(index)     Get the command line parameter indicated by index
 	parser.switch(name)         Returns boolean value that indicates whether the named switch exist
 
 
@@ -42,10 +42,10 @@ Simple command line parser for node
 
 #### Functions
 
-	parser.getOption(name)      Get the value of the named option as string
-	parser.getParameter(index)  Get the command line parameter indicated by index as string
-	parser.getParameterCount()  number
-	parser.getParameters()      array
+	parser.getOption(name)      Get the value of the named option
+	parser.getParameter(index)  Get the command line parameter indicated by index
+	parser.getParameterCount()  Get the number of parameters (no options or switches)
+	parser.getParameters()      Get parameters as array (no options or switches)
 	parser.getSwitch(name)      Returns boolean value that indicates whether the named switch exist
 
 
