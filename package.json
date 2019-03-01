@@ -1,0 +1,32 @@
+{
+  "name": "clparser",
+  "version": "1.0.0",
+  "description": "Command line parser",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "scripts": {
+    "test": "node test /func:1 source target /name:test /p"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "bugs": "https://github.com/ollikekalainenclparser/issues",
+  "keywords": [
+    "cli",
+    "command",
+    "javascript",
+    "argument",
+    "parser",
+    "args",
+    "option",
+    "flag"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ollikekalainen/clparser.git"
+  },
+  "main": "index.js",
+  "author": "Olli Kekäläinen",
+  "license": "MIT"
+}
