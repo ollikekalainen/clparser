@@ -26,6 +26,7 @@
     "type": "git",
     "url": "git://github.com/ollikekalainen/clparser.git"
   },
+  "homepage": "https://github.com/ollikekalainen/clparser",
   "main": "index.js",
   "author": "Olli Kekäläinen",
   "license": "MIT"
