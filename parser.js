@@ -20,9 +20,9 @@
 		parameters 			array
 
 	Methods:
-		option(optionname) 		returns value of the option as string
-		parameter(index)		returns value of the parameter as string
-		switch(switchname) 		returns boolean indicating the existence of the switch 
+		option(optionname) 		string
+		parameter(index)		string
+		switch(switchname) 		boolean
 
  
 

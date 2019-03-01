@@ -1,7 +1,4 @@
-/*
-	(c) 2019 Olli Kekäläinen 
-
-*/
+/* (c) 2019 Olli Kekäläinen */
 
 const iface = {};
 let PARSER;

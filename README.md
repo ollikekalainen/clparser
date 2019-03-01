@@ -5,11 +5,11 @@ Simple command line parser for node
 
 ## Usage
 
-### Class
+### Class interface
 
 #### Initialization
 
-	const clp = require("clparser")
+	const clp = require("clparser");
 	const parser = new clp.ClParser({
 		offset: <number>,           // default: 2
 		optionPrefix: <string>,     // "/", "-", or "--", default: "/"
@@ -23,16 +23,17 @@ Simple command line parser for node
 	parser.parameters           array (readonly)
 
 #### Methods
-	parser.option(name) 		Get the value of the named option as string
+	parser.option(name)         Get the value of the named option as string
 	parser.parameter(index)     Get the command line parameter indicated by index as string
 	parser.switch(name)         Returns boolean value that indicates whether the named switch exist
+
 
 
 ### Function interface
 
 #### Initialization
 
-	const clp = require("clparser")
+	const clp = require("clparser");
 	clp.setPreferences({
 		offset: <number>,           // default: 2
 		optionPrefix: <string>,     // "/", "-", or "--", default: "/"
@@ -50,13 +51,13 @@ Simple command line parser for node
 
 ## Example
 	
-	>node test.js /command:sort c:\test\source.txt c:\test\target.txt /silent 
+	>node test.js /command:sort source.txt target.txt /silent 
     .
     const clp = require("clparser");
 	const parser = new clp.ClParser({ offset: 2 });
 	console.log(parser.option("command"))  -> sort
 	console.log(parser.parameterCount)     -> 2
-	console.log(parser.parameter(0))       -> c:\test\source.txt
-	console.log(parser.parameter(1))       -> c:\test\target.txt
+	console.log(parser.parameter(0))       -> source.txt
+	console.log(parser.parameter(1))       -> target.txt
 	console.log(parser.switch("silent"))   -> true
 	
