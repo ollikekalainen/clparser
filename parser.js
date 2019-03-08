@@ -25,7 +25,7 @@
 		switch(switchname) 		boolean
 
 	Comments by Jari
-		Kuhan testasin muutosta gitissä :-)
+		Kuhan testasin yhtä muutosta gitissä :-)
 
  
 
