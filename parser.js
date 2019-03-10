@@ -24,9 +24,6 @@
 		parameter(index)		string
 		switch(switchname) 		boolean
 
-	Comments by Jari
-		Kuhan testasin yhtä muutosta gitissä :-)
-
  
 
 
