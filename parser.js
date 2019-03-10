@@ -8,21 +8,21 @@
 	Initialization
 
 		const parser = new ClParser({
-			offset: number, 		// default: 2
-			optionPrefix: string, 	// "/", "-", or "--"", default: "/"
-			caseSensitive: boolean 	// default: false
+			offset: number,         // default: 2
+			optionPrefix: string,   // "/", "-", or "--"", default: "/"
+			caseSensitive: boolean  // default: false
 		});
 
 	Properties:
-		offset 				number
-		optionPrefix 		string
-		parameterCount		number
-		parameters 			array
+		offset              number
+		optionPrefix        string
+		parameterCount      number
+		parameters          array
 
 	Methods:
-		option(optionname) 		string
-		parameter(index)		string
-		switch(switchname) 		boolean
+		option(optionname)  string
+		parameter(index)    string
+		switch(switchname)  boolean
 
  
 
@@ -57,6 +57,7 @@
 
 		set optionPrefix(prefix) {
 			if (prefix=="/"||prefix=="-"||prefix=="--") {
+				this._parameters = undefined;
 				this._optionPrefix = prefix;
 				this._optionPrefixLength = prefix.length;
 			}
