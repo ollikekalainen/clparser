@@ -11,7 +11,7 @@
   "engines": {
     "node": ">= 6.0.0"
   },
-  "bugs": "https://github.com/ollikekalainenclparser/issues",
+  "bugs": "https://github.com/ollikekalainen/clparser/issues",
   "keywords": [
     "cli",
     "command",
