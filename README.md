@@ -51,7 +51,7 @@ Simple command line parser for node
 	parser.getParameter(index)  Get the command line parameter indicated by index
 	parser.getParameterCount()  Get the number of parameters (no options or switches)
 	parser.getParameters()      Get parameters as array (no options or switches)
-	parser.getSwitch(name)      Returns boolean value that indicates whether the named switch exist
+	parser.isSwitch(name)       Returns boolean value that indicates whether the named switch exist
 
 
 ## Example
