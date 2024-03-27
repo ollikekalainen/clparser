@@ -1,4 +1,32 @@
-/* (c) 2019 Olli Kekäläinen */
+/* 
+-----------------------------------------------------------------------------------------
+ index.js
+-----------------------------------------------------------------------------------------
+ (c) Olli Kekäläinen
+
+
+
+
+ Rev 1.0.1
+ ----------
+ 
+	
+
+ Rev 1.0.2
+ ----------
+
+ - Added a new option property to the ClParser class and a corresponding getOptions() 
+ function to the clparser function interface.
+ - Added a new switches property to the ClParser class and a corresponding getSwitches() 
+ function to the clparser function interface.
+
+ 	
+
+
+
+ 20240327
+-----------------------------------------------------------------------------------------
+*/
 
 const iface = {};
 let PARSER;
@@ -32,6 +60,16 @@ iface.getParameters = () => {
 iface.getOption = (name) => {
 	ensureInstance();
 	return PARSER.option(name);
+};
+
+iface.getOptions = () => {
+	ensureInstance();
+	return PARSER.options;
+};
+
+iface.getSwitches = () => {
+	ensureInstance();
+	return PARSER.switches;
 };
 
 iface.isSwitch = (name) => {

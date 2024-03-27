@@ -16,8 +16,10 @@
 	Properties:
 		offset              number
 		optionPrefix        string
+		options             array
 		parameterCount      number
 		parameters          array
+		switches            array
 
 	Methods:
 		option(optionname)  string
@@ -27,93 +29,136 @@
  
 
 
- 20190301
+ 20240327
 -----------------------------------------------------------------------------------------
 */
-(() => {
 
-	class ClParser {
-		constructor( params = {}) {
-			this.offset = typeof params.offset == "number" ? params.offset : 2;
-			this.optionPrefix = params.optionPrefix||"/";
-			this.caseSensitive = !!params.caseSensitive;
+const DEFAULT_OFFSET = 2;
+const DEFAULT_PREFIX = "/";
+const DEFAULT_CASESENSITIVE = false;
+
+class ClParser {
+	#params = {};
+	#parameters = [];
+	constructor( params = {}) {
+		typeof params.offset == "number"
+			|| (params.offset = DEFAULT_OFFSET);
+		typeof params.optionPrefix == "string"
+			|| (params.optionPrefix = DEFAULT_PREFIX);
+		typeof params.caseSensitive == "booleanr"
+			|| (params.caseSensitive = DEFAULT_CASESENSITIVE);
+		this.#params = params;
+		this.#parseParameters();
+	}
+
+	get offset() {
+		return this.#params.offset;
+	}
+
+	set offset(offset) {
+		if (this.#params.offset !== offset) {
+			this.#params.offset = offset;
+			this.#parseParameters();
 		}
+		return this.#params.offset;
+	}
 
-		get offset() {
-			return this._offset;
+	get optionPrefix() {
+		return this.#params.optionPrefix;
+	}
+
+	set optionPrefix(prefix) {
+		if (prefix!==this.#params.optionPrefix && (prefix=="/"||prefix=="-"||prefix=="--")) {
+			this.#params.optionPrefix = prefix;
+			this.#parseParameters();
 		}
+		return this.#params.optionPrefix;
+	}
 
-		set offset(offset) {
-			if (this._offset !== offset) {
-				this._parameters = undefined;
+	get options() {
+		const prefixLength = this.optionPrefix.length;
+		const result = [];
+		const asObject = (s) => {
+			const pos = s.indexOf(":");
+			return Object.fromEntries([[ s.substr( 0, pos ), s.substr( pos + 1 )]]);
+		};
+		let i = this.offset;
+		while (i < process.argv.length) {
+			let p = process.argv[i++];
+			if (p.includes(":") && p.substr( 0, prefixLength ) == this.optionPrefix) {
+				result.push( asObject( p.substr( prefixLength )));
 			}
-			this._offset = offset;
-			return this._offset;
 		}
+		return result;
+	}
 
-		get optionPrefix() {
-			return this._optionPrefix;
-		}
+	get parameterCount() {
+		return this.#parameters.length;
+	}
 
-		set optionPrefix(prefix) {
-			if (prefix=="/"||prefix=="-"||prefix=="--") {
-				this._parameters = undefined;
-				this._optionPrefix = prefix;
-				this._optionPrefixLength = prefix.length;
+	get parameters() {
+		return this.#parameters;
+	}
+
+	get switches() {
+		const prefixLength = this.optionPrefix.length;
+		const result = [];
+		let i = this.offset;
+		while (i < process.argv.length) {
+			let name = process.argv[i++];
+			if (!name.includes(":") && name.substr( 0, prefixLength ) == this.optionPrefix) {
+				result.push(name.substr(prefixLength));
 			}
 		}
+		return result;
+	}
 
-		switch(name) {
-			let i = this.offset;
-			name = this._optionPrefix + this._convertCase(name);
-			while (i < process.argv.length) {
-				if (this._convertCase(process.argv[i++]) == name) {
-					return true;
-				}
+	option(name) {
+		name = this.optionPrefix + this.#solveCase(name) + ":";
+		const length = name.length;
+		let i = this.offset;
+		while (i < process.argv.length) {
+			if (this.#solveCase(process.argv[i]).substr( 0, length ) == name) {
+				return process.argv[i].substr(length);
 			}
-			return false;
+			i++;
 		}
+		return undefined;
+	}
 
-		option(name) {
-			name = this._optionPrefix + this._convertCase(name) + ":";
-			const length = name.length;
-			let i = this.offset;
-			while (i < process.argv.length) {
-				if (this._convertCase(process.argv[i]).substr( 0, length ) == name) {
-					return process.argv[i].substr(length);
-				}
-				i++;
+	parameter(index) {
+		return this.#parameters[index];
+	}
+
+
+	switch(name) {
+		let i = this.offset;
+		name = this.optionPrefix + this.#solveCase(name);
+		while (i < process.argv.length) {
+			if (this.#solveCase(process.argv[i++]) == name) {
+				return true;
 			}
-			return undefined;
 		}
+		return false;
+	}
 
-		parameter(index) {
-			return this.parameters[index];
-		}
-
-		get parameterCount() {
-			return this.parameters.length;
-		}
-
-		get parameters() {
-			let i = this.offset;
-			if (!this._parameters) {
-				this._parameters = [];
-				while (i < process.argv.length) {
-					if (process.argv[i].substr(0,this._optionPrefixLength) !== this._optionPrefix) {
-						this._parameters.push(process.argv[i]);
-					}
-					i++;
-				}
+	#parseParameters() {
+		const prefix = this.optionPrefix;
+		const prefixLength = prefix.length;
+		let i = this.offset;
+		this.#parameters = [];
+		while (i < process.argv.length) {
+			if (process.argv[i].substr( 0, prefixLength ) !== prefix) {
+				this.#parameters.push(process.argv[i]);
 			}
-			return this._parameters;
-		}
-
-		_convertCase(name) {
-			return this.caseSensitive ? name : name.toLowerCase();
+			i++;
 		}
 	}
 
-	module.exports = ClParser;
+	#solveCase(name) {
+		return this.caseSensitive ? name : name.toLowerCase();
+	}
+}
 
-})();
+module.exports = ClParser;
+
